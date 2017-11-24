@@ -16,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -94,7 +96,8 @@ public class MainActivity extends AppCompatActivity
         mMap = googleMap;
 
         LatLng officeMytaxi = new LatLng(53.544604, 9.928757);
-        mMap.addMarker(new MarkerOptions().position(officeMytaxi).title("mytaxi Office"));
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
+        mMap.addMarker(new MarkerOptions().position(officeMytaxi).draggable(true).icon(icon));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(officeMytaxi, 18.0f));
     }
 }
