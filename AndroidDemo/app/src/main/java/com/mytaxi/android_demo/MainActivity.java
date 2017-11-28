@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,6 +28,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mytaxi.android_demo.adapters.DriverAdapter;
+import com.mytaxi.android_demo.utils.HttpClient;
 import com.mytaxi.android_demo.utils.PermissionHelper;
 
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
-    static private float DEFAULT_ZOOM = 18.0f;
+    private static float DEFAULT_ZOOM = 18.0f;
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity
     private BitmapDescriptor mIconMarker;
     private LatLng mDefaultLocation = new LatLng(53.544604, 9.928757); // mytaxi Hamburg office
     private Location mLastKnownLocation;
+    private AutoCompleteTextView mSearchView;
+    private DriverAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mSearchView = (AutoCompleteTextView) findViewById(R.id.textSearch);
+        HttpClient.fetchDrivers(new HttpClient.DriverCallback() {
+            @Override
+            public void run() {
+                mAdapter = new DriverAdapter(MainActivity.this, mDrivers);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSearchView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
 
     @Override
