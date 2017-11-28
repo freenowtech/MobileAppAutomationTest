@@ -2,6 +2,7 @@ package com.mytaxi.android_demo.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,6 +19,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
+import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 
 public class HttpClient {
     private static final OkHttpClient mClient = new OkHttpClient();
@@ -41,6 +44,7 @@ public class HttpClient {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
                     ArrayList<Driver> drivers = getDrivers(responseBody.string());
+                    Log.i(LOG_TAG, "Fetched successfully " + drivers.size() + " drivers.");
                     driverCallback.setDrivers(drivers);
                     driverCallback.run();
                 }
