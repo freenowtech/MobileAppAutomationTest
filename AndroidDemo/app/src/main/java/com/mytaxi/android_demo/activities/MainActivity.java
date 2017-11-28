@@ -1,4 +1,4 @@
-package com.mytaxi.android_demo;
+package com.mytaxi.android_demo.activities;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
 import com.mytaxi.android_demo.utils.HttpClient;
 import com.mytaxi.android_demo.utils.PermissionHelper;
