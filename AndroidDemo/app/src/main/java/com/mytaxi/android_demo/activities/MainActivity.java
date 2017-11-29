@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mSearchView = (AutoCompleteTextView) findViewById(R.id.textSearch);
+        mSearchView.setDropDownAnchor(R.id.searchContainer);
         HttpClient.fetchDrivers(new HttpClient.DriverCallback() {
             @Override
             public void run() {
