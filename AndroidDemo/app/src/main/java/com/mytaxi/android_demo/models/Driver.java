@@ -7,15 +7,18 @@ public class Driver implements Parcelable {
 
     private String mName;
     private String mPhone;
+    private String mAvatar;
 
-    public Driver(String name, String phone) {
-        this.mName = name;
-        this.mPhone = phone;
+    public Driver(String name, String phone, String avatar) {
+        mName = name;
+        mPhone = phone;
+        mAvatar = avatar;
     }
 
     private Driver(Parcel parcel) {
         mName = parcel.readString();
         mPhone = parcel.readString();
+        mAvatar = parcel.readString();
     }
 
     public String getName() {
@@ -24,6 +27,10 @@ public class Driver implements Parcelable {
 
     public String getPhone() {
         return mPhone;
+    }
+
+    public String getAvatar() {
+        return mAvatar;
     }
 
     public static final Creator<Driver> CREATOR = new Creator<Driver>() {
@@ -47,6 +54,7 @@ public class Driver implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mName);
         parcel.writeString(mPhone);
+        parcel.writeString(mAvatar);
     }
 
 }

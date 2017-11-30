@@ -12,6 +12,7 @@ import com.mytaxi.android_demo.models.Driver;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,7 +24,7 @@ import okhttp3.ResponseBody;
 import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 
 public class HttpClient {
-    private static final OkHttpClient mClient = new OkHttpClient();
+    private static final OkHttpClient mClient = new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS).build();
     private static final JsonParser mJsonParser = new JsonParser();
     private static final String RANDOM_USER_URL = "https://randomuser.me/api/";
 
@@ -65,7 +66,9 @@ public class HttpClient {
             lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
             String fullName = firstName + " " + lastName;
             String phone = jsonUser.get("cell").getAsString();
-            drivers.add(new Driver(fullName, phone));
+            JsonObject picture = jsonUser.getAsJsonObject("picture");
+            String avatar = picture.get("large").getAsString();
+            drivers.add(new Driver(fullName, phone, avatar));
         }
         return drivers;
     }
