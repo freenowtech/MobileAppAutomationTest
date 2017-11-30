@@ -69,7 +69,9 @@ public class HttpClient {
             String phone = jsonUser.get("cell").getAsString();
             JsonObject picture = jsonUser.getAsJsonObject("picture");
             String avatar = picture.get("large").getAsString();
-            drivers.add(new Driver(fullName, phone, avatar));
+            JsonObject location = jsonUser.getAsJsonObject("location");
+            String street = location.get("street").getAsString();
+            drivers.add(new Driver(fullName, phone, avatar, street));
         }
         return drivers;
     }
