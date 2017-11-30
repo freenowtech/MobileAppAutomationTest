@@ -21,15 +21,15 @@ public class DriverAdapter extends ArrayAdapter<Driver> {
     private List<Driver> mDrivers;
     private final List<Driver> mDriversCompleteSet;
     private LayoutInflater mLayoutInflater;
-    private OnClickListener mOnClickListener;
+    private OnDriverClickCallback mOnDriverClickCallback;
     private static final int sResource = android.R.layout.select_dialog_item;
 
-    public DriverAdapter(@NonNull Context context, List<Driver> drivers, OnClickListener onClickListener) {
+    public DriverAdapter(@NonNull Context context, List<Driver> drivers, OnDriverClickCallback onDriverClickCallback) {
         super(context, sResource, drivers);
         mDrivers = new ArrayList<>(drivers);
         mDriversCompleteSet = new ArrayList<>(drivers);
         mLayoutInflater = LayoutInflater.from(context);
-        mOnClickListener = onClickListener;
+        mOnDriverClickCallback = onDriverClickCallback;
     }
 
     @Override
@@ -53,9 +53,10 @@ public class DriverAdapter extends ArrayAdapter<Driver> {
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(sResource, parent, false);
         }
-        convertView.setOnClickListener(mOnClickListener);
+        Driver driver = mDrivers.get(position);
+        convertView.setOnClickListener(new OnDriverClickListener(driver, mOnDriverClickCallback));
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(mDrivers.get(position).getName());
+        textView.setText(driver.getName());
         return convertView;
     }
 
@@ -100,6 +101,29 @@ public class DriverAdapter extends ArrayAdapter<Driver> {
                 }
             }
         };
+    }
+
+    public class OnDriverClickListener implements OnClickListener {
+
+        private Driver mDriver;
+        private OnDriverClickCallback mOnDriverClickCallback;
+
+        OnDriverClickListener(Driver driver, OnDriverClickCallback onDriverClickCallback) {
+            mDriver = driver;
+            mOnDriverClickCallback = onDriverClickCallback;
+        }
+
+        @Override
+        public void onClick(View view) {
+            mOnDriverClickCallback.execute(mDriver);
+        }
+
+    }
+
+    public interface OnDriverClickCallback {
+
+        void execute(Driver driver);
+
     }
 
 }

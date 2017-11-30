@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
+import com.mytaxi.android_demo.models.Driver;
 import com.mytaxi.android_demo.utils.HttpClient;
 import com.mytaxi.android_demo.utils.PermissionHelper;
 
@@ -89,12 +90,16 @@ public class MainActivity extends AppCompatActivity
         HttpClient.fetchDrivers(new HttpClient.DriverCallback() {
             @Override
             public void run() {
-                mAdapter = new DriverAdapter(MainActivity.this, mDrivers);
+                mAdapter = new DriverAdapter(MainActivity.this, mDrivers, new DriverAdapter.OnDriverClickCallback() {
+                    @Override
+                    public void execute(Driver driver) {
+                        startActivity(DriverProfileActivity.createIntent(MainActivity.this, driver));
+                    }
+                });
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mSearchView.setAdapter(mAdapter);
-                        mAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -214,4 +219,5 @@ public class MainActivity extends AppCompatActivity
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
     }
+
 }

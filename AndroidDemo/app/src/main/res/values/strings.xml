@@ -6,4 +6,7 @@
 
     <!-- MainActivity -->
     <string name="text_hint_driver">Search driver here</string>
+
+    <!-- DriverProfileActivity -->
+    <string name="title_activity_driver_profile">Driver Profile</string>
 </resources>
