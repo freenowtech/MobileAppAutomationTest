@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.models.Driver;
 
@@ -47,7 +48,7 @@ public class DriverProfileActivity extends AppCompatActivity {
         TextView textViewName = (TextView) findViewById(R.id.textViewDriverName);
         textViewName.setText(driver.getName());
         ImageView imageViewAvatar = (ImageView) findViewById(R.id.imageViewDriverAvatar);
-        Glide.with(this).load(driver.getAvatar()).into(imageViewAvatar);
+        Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
     }
 
 }
