@@ -22,9 +22,10 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
+import static com.mytaxi.android_demo.misc.Constants.SOCKET_TIMEOUT;
 
 public class HttpClient {
-    private static final OkHttpClient mClient = new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS).build();
+    private static final OkHttpClient mClient = new OkHttpClient.Builder().readTimeout(SOCKET_TIMEOUT, TimeUnit.SECONDS).build();
     private static final JsonParser mJsonParser = new JsonParser();
     private static final String RANDOM_USER_URL = "https://randomuser.me/api/";
 

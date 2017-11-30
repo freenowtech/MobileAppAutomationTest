@@ -14,13 +14,15 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
+import static com.mytaxi.android_demo.misc.Constants.SOCKET_TIMEOUT;
+
 @GlideModule
 public class CustomGlideModule extends AppGlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.readTimeout(SOCKET_TIMEOUT, TimeUnit.SECONDS);
         registry.append(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
     }
 
