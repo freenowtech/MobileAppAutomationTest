@@ -2,9 +2,9 @@ package com.mytaxi.android_demo.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -42,8 +42,7 @@ public class DriverProfileActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, driver.getName() + ": " + driver.getPhone(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                dialPhoneNumber(driver.getPhone());
             }
         });
 
@@ -55,6 +54,14 @@ public class DriverProfileActivity extends AppCompatActivity {
         textViewLocation.setText(driver.getLocation());
         TextView textViewDate = (TextView) findViewById(R.id.textViewDriverDate);
         textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
+    }
+
+    private void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
 }
