@@ -11,7 +11,10 @@ import com.google.gson.JsonParser;
 import com.mytaxi.android_demo.models.Driver;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -71,7 +74,14 @@ public class HttpClient {
             String avatar = picture.get("large").getAsString();
             JsonObject location = jsonUser.getAsJsonObject("location");
             String street = location.get("street").getAsString();
-            String registeredDate = jsonUser.get("registered").getAsString().split("\\s+")[0];
+            String registered = jsonUser.get("registered").getAsString().split("\\s+")[0];
+            Date registeredDate;
+            try {
+                registeredDate = new SimpleDateFormat("yyyy-MM-dd").parse(registered);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                registeredDate = new Date(0);
+            }
             drivers.add(new Driver(fullName, phone, avatar, street, registeredDate));
         }
         return drivers;

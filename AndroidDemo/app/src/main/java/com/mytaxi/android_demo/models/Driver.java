@@ -3,15 +3,17 @@ package com.mytaxi.android_demo.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class Driver implements Parcelable {
 
     private String mName;
     private String mPhone;
     private String mAvatar;
     private String mLocation;
-    private String mRegisteredDate;
+    private Date mRegisteredDate;
 
-    public Driver(String name, String phone, String avatar, String location, String registeredDate) {
+    public Driver(String name, String phone, String avatar, String location, Date registeredDate) {
         mName = name;
         mPhone = phone;
         mAvatar = avatar;
@@ -24,7 +26,16 @@ public class Driver implements Parcelable {
         mPhone = parcel.readString();
         mAvatar = parcel.readString();
         mLocation = parcel.readString();
-        mRegisteredDate = parcel.readString();
+        mRegisteredDate = new Date(parcel.readLong());
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mName);
+        parcel.writeString(mPhone);
+        parcel.writeString(mAvatar);
+        parcel.writeString(mLocation);
+        parcel.writeLong(mRegisteredDate.getTime());
     }
 
     public String getName() {
@@ -43,7 +54,7 @@ public class Driver implements Parcelable {
         return mLocation;
     }
 
-    public String getRegisteredDate() {
+    public Date getRegisteredDate() {
         return mRegisteredDate;
     }
 
@@ -62,15 +73,6 @@ public class Driver implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mName);
-        parcel.writeString(mPhone);
-        parcel.writeString(mAvatar);
-        parcel.writeString(mLocation);
-        parcel.writeString(mRegisteredDate);
     }
 
 }

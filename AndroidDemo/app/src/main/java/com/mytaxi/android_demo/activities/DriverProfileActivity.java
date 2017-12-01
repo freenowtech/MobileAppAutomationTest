@@ -16,6 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.models.Driver;
 
+import java.text.SimpleDateFormat;
+
 public class DriverProfileActivity extends AppCompatActivity {
 
     private static final String EXTRA_DRIVER = "driver";
@@ -52,7 +54,7 @@ public class DriverProfileActivity extends AppCompatActivity {
         TextView textViewLocation = (TextView) findViewById(R.id.textViewDriverLocation);
         textViewLocation.setText(driver.getLocation());
         TextView textViewDate = (TextView) findViewById(R.id.textViewDriverDate);
-        textViewDate.setText(driver.getRegisteredDate());
+        textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
     }
 
 }
