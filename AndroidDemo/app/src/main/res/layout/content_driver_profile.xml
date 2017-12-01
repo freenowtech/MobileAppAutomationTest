@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/container_margin"
         android:layout_marginStart="@dimen/container_margin"
         android:layout_marginTop="@dimen/container_margin"
@@ -28,6 +28,7 @@
                 android:layout_height="128dp"
                 android:layout_margin="@dimen/image_widget_margin"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
