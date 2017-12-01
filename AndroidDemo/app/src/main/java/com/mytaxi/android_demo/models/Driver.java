@@ -9,12 +9,14 @@ public class Driver implements Parcelable {
     private String mPhone;
     private String mAvatar;
     private String mLocation;
+    private String mRegisteredDate;
 
-    public Driver(String name, String phone, String avatar, String location) {
+    public Driver(String name, String phone, String avatar, String location, String registeredDate) {
         mName = name;
         mPhone = phone;
         mAvatar = avatar;
         mLocation = location;
+        mRegisteredDate = registeredDate;
     }
 
     private Driver(Parcel parcel) {
@@ -22,6 +24,7 @@ public class Driver implements Parcelable {
         mPhone = parcel.readString();
         mAvatar = parcel.readString();
         mLocation = parcel.readString();
+        mRegisteredDate = parcel.readString();
     }
 
     public String getName() {
@@ -38,6 +41,10 @@ public class Driver implements Parcelable {
 
     public String getLocation() {
         return mLocation;
+    }
+
+    public String getRegisteredDate() {
+        return mRegisteredDate;
     }
 
     public static final Creator<Driver> CREATOR = new Creator<Driver>() {
@@ -63,6 +70,7 @@ public class Driver implements Parcelable {
         parcel.writeString(mPhone);
         parcel.writeString(mAvatar);
         parcel.writeString(mLocation);
+        parcel.writeString(mRegisteredDate);
     }
 
 }

@@ -62,6 +62,27 @@
                 app:layout_constraintStart_toEndOf="@+id/imageViewDriverLocation"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <ImageView
+                android:id="@+id/imageViewDriverDate"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="@dimen/image_widget_margin"
+                android:src="@drawable/ic_date"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewDriverLocation"
+                app:layout_constraintStart_toEndOf="@+id/imageViewDriverAvatar" />
+
+            <TextView
+                android:id="@+id/textViewDriverDate"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_margin="@dimen/text_widget_margin"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDriverLocation"
+                app:layout_constraintStart_toEndOf="@+id/imageViewDriverDate"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>

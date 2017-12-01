@@ -51,6 +51,8 @@ public class DriverProfileActivity extends AppCompatActivity {
         Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
         TextView textViewLocation = (TextView) findViewById(R.id.textViewDriverLocation);
         textViewLocation.setText(driver.getLocation());
+        TextView textViewDate = (TextView) findViewById(R.id.textViewDriverDate);
+        textViewDate.setText(driver.getRegisteredDate());
     }
 
 }

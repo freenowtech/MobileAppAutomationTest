@@ -71,7 +71,8 @@ public class HttpClient {
             String avatar = picture.get("large").getAsString();
             JsonObject location = jsonUser.getAsJsonObject("location");
             String street = location.get("street").getAsString();
-            drivers.add(new Driver(fullName, phone, avatar, street));
+            String registeredDate = jsonUser.get("registered").getAsString().split("\\s+")[0];
+            drivers.add(new Driver(fullName, phone, avatar, street, registeredDate));
         }
         return drivers;
     }
