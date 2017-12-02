@@ -37,23 +37,7 @@ public class DriverProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final Driver driver = intent.getParcelableExtra(EXTRA_DRIVER);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialPhoneNumber(driver.getPhone());
-            }
-        });
-
-        TextView textViewName = findViewById(R.id.textViewDriverName);
-        textViewName.setText(driver.getName());
-        ImageView imageViewAvatar = findViewById(R.id.imageViewDriverAvatar);
-        Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
-        TextView textViewLocation = findViewById(R.id.textViewDriverLocation);
-        textViewLocation.setText(driver.getLocation());
-        TextView textViewDate = findViewById(R.id.textViewDriverDate);
-        textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
+        setProfile(driver);
     }
 
     private void dialPhoneNumber(String phoneNumber) {
@@ -62,6 +46,25 @@ public class DriverProfileActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    private void setProfile(final Driver driver) {
+        TextView textViewName = findViewById(R.id.textViewDriverName);
+        ImageView imageViewAvatar = findViewById(R.id.imageViewDriverAvatar);
+        TextView textViewLocation = findViewById(R.id.textViewDriverLocation);
+        TextView textViewDate = findViewById(R.id.textViewDriverDate);
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        textViewName.setText(driver.getName());
+        Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
+        textViewLocation.setText(driver.getLocation());
+        textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialPhoneNumber(driver.getPhone());
+            }
+        });
     }
 
 }

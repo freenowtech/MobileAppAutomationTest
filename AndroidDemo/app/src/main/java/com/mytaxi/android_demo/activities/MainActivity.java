@@ -31,7 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
 import com.mytaxi.android_demo.models.Driver;
-import com.mytaxi.android_demo.utils.HttpClient;
+import com.mytaxi.android_demo.utils.network.HttpClient;
 import com.mytaxi.android_demo.utils.PermissionHelper;
 
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;

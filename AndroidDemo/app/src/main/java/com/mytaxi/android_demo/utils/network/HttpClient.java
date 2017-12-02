@@ -1,4 +1,4 @@
-package com.mytaxi.android_demo.utils;
+package com.mytaxi.android_demo.utils.network;
 
 import android.annotation.TargetApi;
 import android.os.Build;
