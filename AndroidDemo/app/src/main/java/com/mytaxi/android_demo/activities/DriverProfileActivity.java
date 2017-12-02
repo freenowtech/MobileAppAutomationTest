@@ -32,13 +32,13 @@ public class DriverProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         final Driver driver = intent.getParcelableExtra(EXTRA_DRIVER);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,13 +46,13 @@ public class DriverProfileActivity extends AppCompatActivity {
             }
         });
 
-        TextView textViewName = (TextView) findViewById(R.id.textViewDriverName);
+        TextView textViewName = findViewById(R.id.textViewDriverName);
         textViewName.setText(driver.getName());
-        ImageView imageViewAvatar = (ImageView) findViewById(R.id.imageViewDriverAvatar);
+        ImageView imageViewAvatar = findViewById(R.id.imageViewDriverAvatar);
         Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
-        TextView textViewLocation = (TextView) findViewById(R.id.textViewDriverLocation);
+        TextView textViewLocation = findViewById(R.id.textViewDriverLocation);
         textViewLocation.setText(driver.getLocation());
-        TextView textViewDate = (TextView) findViewById(R.id.textViewDriverDate);
+        TextView textViewDate = findViewById(R.id.textViewDriverDate);
         textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
     }
 
