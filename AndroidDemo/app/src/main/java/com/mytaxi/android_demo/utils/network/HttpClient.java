@@ -28,11 +28,17 @@ import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 import static com.mytaxi.android_demo.misc.Constants.SOCKET_TIMEOUT;
 
 public class HttpClient {
-    private static final OkHttpClient mClient = new OkHttpClient.Builder().readTimeout(SOCKET_TIMEOUT, TimeUnit.SECONDS).build();
-    private static final JsonParser mJsonParser = new JsonParser();
-    private static final String RANDOM_USER_URL = "https://randomuser.me/api/";
 
-    public static void fetchDrivers(final DriverCallback driverCallback) {
+    private static final String RANDOM_USER_URL = "https://randomuser.me/api/";
+    private final OkHttpClient mClient;
+    private final JsonParser mJsonParser;
+
+    public HttpClient() {
+        mClient = new OkHttpClient.Builder().readTimeout(SOCKET_TIMEOUT, TimeUnit.SECONDS).build();
+        mJsonParser = new JsonParser();
+    }
+
+    public void fetchDrivers(final DriverCallback driverCallback) {
         int amount = 256;
         String seed = "23f8827e04239990";
         String url = RANDOM_USER_URL + "?results=" + amount + "&seed=" + seed;
@@ -57,7 +63,7 @@ public class HttpClient {
         });
     }
 
-    private static ArrayList<Driver> getDrivers(String jsonResponse) {
+    private ArrayList<Driver> getDrivers(String jsonResponse) {
         JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
         JsonArray results = jsonObject.getAsJsonArray("results");
         ArrayList<Driver> drivers = new ArrayList<>();
@@ -88,10 +94,13 @@ public class HttpClient {
     }
 
     public abstract static class DriverCallback implements Runnable {
+
         protected ArrayList<Driver> mDrivers;
 
         void setDrivers(ArrayList<Driver> drivers) {
             mDrivers = drivers;
         }
+
     }
+
 }

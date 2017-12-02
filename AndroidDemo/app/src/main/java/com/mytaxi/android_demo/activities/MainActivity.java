@@ -30,9 +30,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
+import com.mytaxi.android_demo.dependencies.component.AppComponent;
+import com.mytaxi.android_demo.dependencies.component.DaggerAppComponent;
 import com.mytaxi.android_demo.models.Driver;
-import com.mytaxi.android_demo.utils.network.HttpClient;
 import com.mytaxi.android_demo.utils.PermissionHelper;
+import com.mytaxi.android_demo.utils.network.HttpClient;
+
+import javax.inject.Inject;
 
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
@@ -42,9 +46,13 @@ public class MainActivity extends AppCompatActivity
     private static final String KEY_LOCATION = "location";
     private static float DEFAULT_ZOOM = 18.0f;
 
+    @Inject
+    HttpClient mHttpClient;
+    @Inject
+    PermissionHelper mPermissionHelper;
+
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PermissionHelper mPermissionHelper = new PermissionHelper();
     private BitmapDescriptor mIconMarker;
     private LatLng mDefaultLocation = new LatLng(53.544604, 9.928757); // mytaxi Hamburg office
     private Location mLastKnownLocation;
@@ -60,6 +68,9 @@ public class MainActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        AppComponent appComponent = DaggerAppComponent.builder().build();
+        appComponent.inject(this);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -87,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
         mSearchView = findViewById(R.id.textSearch);
         mSearchView.setDropDownAnchor(R.id.searchContainer);
-        HttpClient.fetchDrivers(new HttpClient.DriverCallback() {
+        mHttpClient.fetchDrivers(new HttpClient.DriverCallback() {
             @Override
             public void run() {
                 mAdapter = new DriverAdapter(MainActivity.this, mDrivers, new DriverAdapter.OnDriverClickCallback() {

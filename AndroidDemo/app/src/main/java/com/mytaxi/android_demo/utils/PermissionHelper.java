@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 public class PermissionHelper {
+
     static public final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     private boolean mLocationPermissionGranted;
@@ -34,4 +35,5 @@ public class PermissionHelper {
     public void setLocationPermissionGranted(boolean locationPermissionGranted) {
         this.mLocationPermissionGranted = locationPermissionGranted;
     }
+
 }
