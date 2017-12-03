@@ -38,13 +38,14 @@ import com.mytaxi.android_demo.utils.network.HttpClient;
 
 import javax.inject.Inject;
 
+import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
+import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
-    private static float DEFAULT_ZOOM = 18.0f;
 
     @Inject
     HttpClient mHttpClient;
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private BitmapDescriptor mIconMarker;
-    private LatLng mDefaultLocation = new LatLng(53.544604, 9.928757); // mytaxi Hamburg office
     private Location mLastKnownLocation;
     private AutoCompleteTextView mSearchView;
     private DriverAdapter mAdapter;
@@ -206,8 +206,8 @@ public class MainActivity extends AppCompatActivity
                             mMap.addMarker(new MarkerOptions().position(lastKnownLatLng).draggable(true).icon(mIconMarker));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastKnownLatLng, DEFAULT_ZOOM));
                         } else {
-                            mMap.addMarker(new MarkerOptions().position(mDefaultLocation).draggable(true).icon(mIconMarker));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.addMarker(new MarkerOptions().position(DEFAULT_LOCATION).draggable(true).icon(mIconMarker));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM));
                         }
                     }
                 });
