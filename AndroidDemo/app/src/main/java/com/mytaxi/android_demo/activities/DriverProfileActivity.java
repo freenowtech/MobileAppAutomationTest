@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.models.Driver;
+import com.mytaxi.android_demo.utils.GlideApp;
 
 import java.text.SimpleDateFormat;
 
@@ -56,7 +56,7 @@ public class DriverProfileActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
 
         textViewName.setText(driver.getName());
-        Glide.with(this).load(driver.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
+        GlideApp.with(this).load(driver.getAvatar()).placeholder(R.drawable.ic_driver).apply(RequestOptions.circleCropTransform()).into(imageViewAvatar);
         textViewLocation.setText(driver.getLocation());
         textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(driver.getRegisteredDate()));
         fab.setOnClickListener(new View.OnClickListener() {
