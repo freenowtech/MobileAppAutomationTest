@@ -1,5 +1,6 @@
 package com.mytaxi.android_demo.dependencies.component;
 
+import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.dependencies.module.NetworkModule;
 import com.mytaxi.android_demo.dependencies.module.PermissionModule;
@@ -13,5 +14,7 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(MainActivity activity);
+
+    void inject(AuthenticationActivity activity);
 
 }

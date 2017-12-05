@@ -63,6 +63,27 @@ public class HttpClient {
         });
     }
 
+    public void fetchCredential(String seed, final CredentialCallback credentialCallback) {
+        String url = RANDOM_USER_URL + "?seed=" + seed;
+        Request request = new Request.Builder().url(url).build();
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    credentialCallback.setCredential(getCredential(responseBody.string()));
+                    credentialCallback.run();
+                }
+            }
+        });
+    }
+
     private ArrayList<Driver> getDrivers(String jsonResponse) {
         JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
         JsonArray results = jsonObject.getAsJsonArray("results");
@@ -93,12 +114,31 @@ public class HttpClient {
         return drivers;
     }
 
+    private String getCredential(String jsonResponse) {
+        JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
+        JsonArray results = jsonObject.getAsJsonArray("results");
+        JsonElement jsonElement = results.get(0);
+        JsonObject jsonUser = jsonElement.getAsJsonObject();
+        JsonObject login = jsonUser.getAsJsonObject("login");
+        return login.get("sha256").getAsString();
+    }
+
     public abstract static class DriverCallback implements Runnable {
 
         protected ArrayList<Driver> mDrivers;
 
         void setDrivers(ArrayList<Driver> drivers) {
             mDrivers = drivers;
+        }
+
+    }
+
+    public abstract static class CredentialCallback implements Runnable {
+
+        protected String mCredential;
+
+        void setCredential(String credential) {
+            mCredential = credential;
         }
 
     }

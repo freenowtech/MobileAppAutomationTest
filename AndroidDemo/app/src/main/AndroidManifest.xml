@@ -42,6 +42,9 @@
             android:name=".activities.DriverProfileActivity"
             android:label="@string/title_activity_driver_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activities.AuthenticationActivity"
+            android:label="@string/title_activity_authentication"></activity>
     </application>
 
 </manifest>
