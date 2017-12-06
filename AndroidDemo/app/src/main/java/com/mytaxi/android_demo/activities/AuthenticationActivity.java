@@ -34,7 +34,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
 
-    private static final String SALT = "Nwp3zuBv";
     private static final String RANDOM_USER_SEED = "a1f30d446f820665";
 
     public static Intent createIntent(Activity activity) {
@@ -62,12 +61,12 @@ public class AuthenticationActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void attemptLogin() {
         final String username = mEditTextUsername.getText().toString();
-        String password = mEditTextPassword.getText().toString();
-        final String sha256 = calculateSHA256(password, SALT);
-        mHttpClient.fetchCredential(RANDOM_USER_SEED, new HttpClient.CredentialCallback() {
+        final String password = mEditTextPassword.getText().toString();
+        mHttpClient.fetchUser(RANDOM_USER_SEED, new HttpClient.UserCallback() {
             @Override
             public void run() {
-                if (mCredential.equals(sha256)) {
+                String sha256 = calculateSHA256(password, mUser.getSalt());
+                if (mUser.match(username, sha256)) {
                     Log.i(LOG_TAG, "Successful login with user: " + username);
                 } else {
                     Log.i(LOG_TAG, "Failed login with user: " + username);

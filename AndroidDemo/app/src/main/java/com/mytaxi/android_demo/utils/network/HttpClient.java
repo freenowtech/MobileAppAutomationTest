@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mytaxi.android_demo.models.Driver;
+import com.mytaxi.android_demo.models.User;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -63,7 +64,7 @@ public class HttpClient {
         });
     }
 
-    public void fetchCredential(String seed, final CredentialCallback credentialCallback) {
+    public void fetchUser(String seed, final UserCallback userCallback) {
         String url = RANDOM_USER_URL + "?seed=" + seed;
         Request request = new Request.Builder().url(url).build();
         mClient.newCall(request).enqueue(new Callback() {
@@ -77,8 +78,8 @@ public class HttpClient {
             public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                    credentialCallback.setCredential(getCredential(responseBody.string()));
-                    credentialCallback.run();
+                    userCallback.setUser(getUser(responseBody.string()));
+                    userCallback.run();
                 }
             }
         });
@@ -114,13 +115,16 @@ public class HttpClient {
         return drivers;
     }
 
-    private String getCredential(String jsonResponse) {
+    private User getUser(String jsonResponse) {
         JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
         JsonArray results = jsonObject.getAsJsonArray("results");
         JsonElement jsonElement = results.get(0);
         JsonObject jsonUser = jsonElement.getAsJsonObject();
         JsonObject login = jsonUser.getAsJsonObject("login");
-        return login.get("sha256").getAsString();
+        String username = login.get("username").getAsString();
+        String salt = login.get("salt").getAsString();
+        String sha256 = login.get("sha256").getAsString();
+        return new User(username, salt, sha256);
     }
 
     public abstract static class DriverCallback implements Runnable {
@@ -133,12 +137,12 @@ public class HttpClient {
 
     }
 
-    public abstract static class CredentialCallback implements Runnable {
+    public abstract static class UserCallback implements Runnable {
 
-        protected String mCredential;
+        protected User mUser;
 
-        void setCredential(String credential) {
-            mCredential = credential;
+        void setUser(User user) {
+            mUser = user;
         }
 
     }
