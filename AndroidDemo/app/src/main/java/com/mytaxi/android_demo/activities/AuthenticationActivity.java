@@ -12,10 +12,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.dependencies.component.AppComponent;
-import com.mytaxi.android_demo.dependencies.component.DaggerAppComponent;
 import com.mytaxi.android_demo.utils.network.HttpClient;
+import com.mytaxi.android_demo.utils.storage.SharedPrefStorage;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +32,9 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Inject
     HttpClient mHttpClient;
 
+    @Inject
+    SharedPrefStorage mSharedPrefStorage;
+
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
 
@@ -44,7 +48,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
-        AppComponent appComponent = DaggerAppComponent.builder().build();
+        AppComponent appComponent = App.getApplicationContext(this).getAppComponent();
         appComponent.inject(this);
         mEditTextUsername = findViewById(R.id.edt_username);
         mEditTextPassword = findViewById(R.id.edt_password);
@@ -67,6 +71,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             public void run() {
                 String sha256 = calculateSHA256(password, mUser.getSalt());
                 if (mUser.match(username, sha256)) {
+                    mSharedPrefStorage.saveUser(mUser);
                     Log.i(LOG_TAG, "Successful login with user: " + username);
                 } else {
                     Log.i(LOG_TAG, "Failed login with user: " + username);

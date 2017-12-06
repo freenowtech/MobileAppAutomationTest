@@ -9,7 +9,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,10 +27,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
 import com.mytaxi.android_demo.dependencies.component.AppComponent;
-import com.mytaxi.android_demo.dependencies.component.DaggerAppComponent;
 import com.mytaxi.android_demo.models.Driver;
 import com.mytaxi.android_demo.utils.PermissionHelper;
 import com.mytaxi.android_demo.utils.network.HttpClient;
@@ -42,7 +41,7 @@ import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AuthenticatedActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
@@ -60,6 +59,14 @@ public class MainActivity extends AppCompatActivity
     private DriverAdapter mAdapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isAuthenticated()) {
+            startActivity(AuthenticationActivity.createIntent(MainActivity.this));
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadInstanceState(savedInstanceState);
@@ -69,7 +76,7 @@ public class MainActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        AppComponent appComponent = DaggerAppComponent.builder().build();
+        AppComponent appComponent = App.getApplicationContext(this).getAppComponent();
         appComponent.inject(this);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
