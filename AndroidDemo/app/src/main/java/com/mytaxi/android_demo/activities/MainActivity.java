@@ -84,8 +84,6 @@ public class MainActivity extends AuthenticatedActivity implements OnMapReadyCal
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        mIconMarker = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -146,6 +144,7 @@ public class MainActivity extends AuthenticatedActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mIconMarker = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
         updateLocationUI();
         getDeviceLocation();
     }
