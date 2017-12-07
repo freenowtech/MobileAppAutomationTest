@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -75,6 +76,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                     finish();
                     Log.i(LOG_TAG, "Successful login with user: " + username);
                 } else {
+                    View view = findViewById(android.R.id.content);
+                    Snackbar.make(view, R.string.message_login_fail, Snackbar.LENGTH_LONG).show();
                     Log.i(LOG_TAG, "Failed login with user: " + username);
                 }
             }

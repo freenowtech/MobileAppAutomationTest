@@ -15,4 +15,5 @@
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
     <string name="button_login">Login</string>
+    <string name="message_login_fail">Login failed</string>
 </resources>
