@@ -72,6 +72,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 String sha256 = calculateSHA256(password, mUser.getSalt());
                 if (mUser.match(username, sha256)) {
                     mSharedPrefStorage.saveUser(mUser);
+                    finish();
                     Log.i(LOG_TAG, "Successful login with user: " + username);
                 } else {
                     Log.i(LOG_TAG, "Failed login with user: " + username);
