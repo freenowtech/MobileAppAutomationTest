@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -63,6 +64,10 @@ public class MainActivity extends AuthenticatedActivity
         super.onResume();
         if (!isAuthenticated()) {
             startActivity(AuthenticationActivity.createIntent(MainActivity.this));
+        } else {
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            NavigationView nav = drawer.findViewById(R.id.nav_view);
+            ((TextView) nav.getHeaderView(0).findViewById(R.id.nav_username)).setText(mSharedPrefStorage.loadUser().getUsername());
         }
     }
 
