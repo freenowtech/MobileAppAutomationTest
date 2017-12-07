@@ -4,12 +4,12 @@ Dear candidate,
 
 🎈 Welcome to the mobile test challenge.
 
-As a talented QA engineer, your task is to write pretty and stable Android UI tests with [Espresso](https://developer.android.com/training/testing/espresso/index.html) for the given Android source code / app.
+As a talented QA engineer, your task is to write pretty and stable Android UI tests with [**Espresso**](https://developer.android.com/training/testing/espresso/index.html) for the given Android source code / app.
 
 ✏️ **Task**:
-* Login case (username: *whiteelephant261*, password: *video*).
-* Search for "*sa*", select "*Sarah Friedrich*" from results, then click the call button.
-* Deploy the test on [CircleCI](https://circleci.com/).
+* Login case (username: ***whiteelephant261***, password: ***video***).
+* Search for "***sa***", select "***Sarah Friedrich***" from results, then click the call button.
+* Deploy the tests on [**CircleCI**](https://circleci.com/).
 
 📖 **Rules**:
 * The only rule is to use Espresso ☕ ;)
