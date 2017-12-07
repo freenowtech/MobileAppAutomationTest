@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -42,8 +41,7 @@ import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
-public class MainActivity extends AuthenticatedActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+public class MainActivity extends AuthenticatedActivity implements OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
 
@@ -105,9 +103,6 @@ public class MainActivity extends AuthenticatedActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         mSearchView = findViewById(R.id.textSearch);
         mSearchView.setDropDownAnchor(R.id.searchContainer);
         mHttpClient.fetchDrivers(new HttpClient.DriverCallback() {
@@ -137,22 +132,6 @@ public class MainActivity extends AuthenticatedActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     /**
