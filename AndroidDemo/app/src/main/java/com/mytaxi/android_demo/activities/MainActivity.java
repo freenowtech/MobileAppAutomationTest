@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -34,21 +35,28 @@ import com.mytaxi.android_demo.dependencies.component.AppComponent;
 import com.mytaxi.android_demo.models.Driver;
 import com.mytaxi.android_demo.utils.PermissionHelper;
 import com.mytaxi.android_demo.utils.network.HttpClient;
+import com.mytaxi.android_demo.utils.storage.SharedPrefStorage;
 
 import javax.inject.Inject;
 
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
+import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
-public class MainActivity extends AuthenticatedActivity implements OnMapReadyCallback {
+public class MainActivity extends AuthenticatedActivity
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
 
     @Inject
     HttpClient mHttpClient;
+
     @Inject
     PermissionHelper mPermissionHelper;
+
+    @Inject
+    SharedPrefStorage mSharedPrefStorage;
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -100,6 +108,9 @@ public class MainActivity extends AuthenticatedActivity implements OnMapReadyCal
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         mSearchView = findViewById(R.id.textSearch);
         mSearchView.setDropDownAnchor(R.id.searchContainer);
@@ -205,6 +216,21 @@ public class MainActivity extends AuthenticatedActivity implements OnMapReadyCal
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_logout) {
+            mSharedPrefStorage.resetUser();
+            Log.i(LOG_TAG, "User is logged out");
+            startActivity(AuthenticationActivity.createIntent(MainActivity.this));
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override

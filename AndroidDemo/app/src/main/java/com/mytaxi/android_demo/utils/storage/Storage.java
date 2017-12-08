@@ -8,4 +8,6 @@ public interface Storage {
 
     void saveUser(User user);
 
+    void resetUser();
+
 }

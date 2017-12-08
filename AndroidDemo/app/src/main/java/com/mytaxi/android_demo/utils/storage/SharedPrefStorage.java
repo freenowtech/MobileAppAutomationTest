@@ -36,4 +36,13 @@ public class SharedPrefStorage implements Storage {
         editor.apply();
     }
 
+    @Override
+    public void resetUser() {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.remove("username");
+        editor.remove("salt");
+        editor.remove("sha256");
+        editor.apply();
+    }
+
 }
