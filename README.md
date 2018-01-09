@@ -9,7 +9,7 @@ As a talented QA engineer, your task is to write pretty and stable Android UI te
 ✏️ **Task**:
 * Login case (username: ***whiteelephant261***, password: ***video***).
 * Search for "***sa***", select "***Sarah Friedrich***" from results, then click the call button.
-* Deploy the tests on [**CircleCI**](https://circleci.com/).
+* Deploy the tests on [**CircleCI**](https://circleci.com/), and send us the link to the CircleCI builds overview page.
 
 📖 **Rules**:
 * The only rule is to use Espresso ☕ ;)
