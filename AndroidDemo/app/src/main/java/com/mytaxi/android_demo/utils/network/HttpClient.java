@@ -102,10 +102,11 @@ public class HttpClient {
             String avatar = picture.get("large").getAsString();
             JsonObject location = jsonUser.getAsJsonObject("location");
             String street = location.get("street").getAsString();
-            String registered = jsonUser.get("registered").getAsString().split("\\s+")[0];
+            JsonObject registered = jsonUser.getAsJsonObject("registered");
+            String date = registered.get("date").getAsString();
             Date registeredDate;
             try {
-                registeredDate = new SimpleDateFormat("yyyy-MM-dd").parse(registered);
+                registeredDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
             } catch (ParseException e) {
                 e.printStackTrace();
                 registeredDate = new Date(0);
