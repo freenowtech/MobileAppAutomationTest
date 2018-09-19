@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.dependencies.component.AppComponent;
+import com.mytaxi.android_demo.utils.idle_resources.LoginIdleManager;
 import com.mytaxi.android_demo.utils.network.HttpClient;
 import com.mytaxi.android_demo.utils.storage.SharedPrefStorage;
 
@@ -58,6 +59,8 @@ public class AuthenticationActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
+                Log.println(Log.INFO, "test", "Set Idle false");
+                LoginIdleManager.setIdle(false);
                 attemptLogin();
             }
         });
@@ -80,6 +83,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                     Snackbar.make(view, R.string.message_login_fail, Snackbar.LENGTH_LONG).show();
                     Log.i(LOG_TAG, "Failed login with user: " + username);
                 }
+                Log.println(Log.INFO, "test", "Set Idle true");
+                LoginIdleManager.setIdle(true);
             }
         });
     }
