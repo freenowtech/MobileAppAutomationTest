@@ -40,7 +40,7 @@ public class HttpClient {
     }
 
     public void fetchDrivers(final DriverCallback driverCallback) {
-        int amount = 256;
+        int amount = 10;
         String seed = "23f8827e04239990";
         String url = RANDOM_USER_URL + "?results=" + amount + "&seed=" + seed;
         Request request = new Request.Builder().url(url).build();
