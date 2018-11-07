@@ -4,15 +4,15 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.support.test.rule.ActivityTestRule
 import android.support.test.rule.GrantPermissionRule
 import com.mytaxi.android_demo.activities.MainActivity
-import com.mytaxi.android_demo.utils.TestData.driverCamila
-import com.mytaxi.android_demo.utils.TestData.validPassword
-import com.mytaxi.android_demo.utils.TestData.validUsername
+import com.mytaxi.android_demo.utils.DateUtils.toLocalDate
+import com.mytaxi.android_demo.utils.TestData
+import com.mytaxi.android_demo.utils.TestData.VALID_PASSWORD
+import com.mytaxi.android_demo.utils.TestData.VALID_USERNAME
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.time.ZoneId
 
 class DriverProfileTest : BaseTest() {
 
@@ -23,9 +23,9 @@ class DriverProfileTest : BaseTest() {
     val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(ACCESS_FINE_LOCATION)
 
     @Before
-    fun login() = loginScreen().login(validUsername, validPassword)
+    fun login() = loginScreen().login(VALID_USERNAME, VALID_PASSWORD)
 
-    private val testDriver = driverCamila
+    private val testDriver = TestData.Drivers.Camila
 
     @Test
     fun shouldNavigateToDriverProfile() {
@@ -43,8 +43,7 @@ class DriverProfileTest : BaseTest() {
                 driverProfileScreen().getLocation(), equalTo(testDriver.location))
         assertThat("Driver 'registered date' is not the expected one",
                 driverProfileScreen().getRegisteredDate(),
-                equalTo(testDriver.registeredDate
-                        .toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
+                equalTo(toLocalDate(testDriver.registeredDate)))
     }
 
     @Test

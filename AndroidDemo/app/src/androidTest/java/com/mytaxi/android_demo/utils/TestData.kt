@@ -1,32 +1,30 @@
 package com.mytaxi.android_demo.utils
 
 import com.mytaxi.android_demo.models.Driver
+import com.mytaxi.android_demo.utils.DateUtils.toDate
 import java.time.LocalDate
-import java.time.ZoneId
-import java.util.*
 
 object TestData {
 
-    const val validUsername = "crazydog335"
-    const val validPassword = "venture"
+    const val VALID_USERNAME = "crazydog335"
+    const val VALID_PASSWORD = "venture"
 
-    val driverSarah = Driver(
-            "Sarah Scott",
-            "(413) 868-2228",
-            "imageUrl",
-            "6834 charles st",
-            toDate(LocalDate.parse("2002-10-18"))
-    )
+    object Drivers {
 
-    val driverCamila = Driver(
-            "Camila Hernandez",
-            "(149) 278-5939",
-            "imageUrl",
-            "6044 avondale ave",
-            toDate(LocalDate.parse("2011-05-29"))
-    )
+        val Sarah = Driver(
+                "Sarah Scott",
+                "(413) 868-2228",
+                "imageUrl",
+                "6834 charles st",
+                DateUtils.toDate(LocalDate.parse("2002-10-18"))
+        )
 
-    private fun toDate(localDate: LocalDate) : Date {
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
+        val Camila = Driver(
+                "Camila Hernandez",
+                "(149) 278-5939",
+                "imageUrl",
+                "6044 avondale ave",
+                toDate(LocalDate.parse("2011-05-29"))
+        )
     }
 }
