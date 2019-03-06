@@ -180,8 +180,7 @@ public class MainActivity extends AuthenticatedActivity
             return;
         }
         try {
-            if (mPermissionHelper.isLocationPermissionGranted()) {
-            } else {
+            if (!mPermissionHelper.isLocationPermissionGranted()) {
                 mLastKnownLocation = null;
                 mPermissionHelper.getLocationPermission(this);
             }
