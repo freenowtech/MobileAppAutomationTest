@@ -7,7 +7,7 @@ import com.freenow.android_demo.models.User;
 
 public class SharedPrefStorage implements Storage {
 
-    private static final String PREFS_NAME = "MytaxiPrefs";
+    private static final String PREFS_NAME = "FreeNowPrefs";
 
     private SharedPreferences mSharedPref;
 
