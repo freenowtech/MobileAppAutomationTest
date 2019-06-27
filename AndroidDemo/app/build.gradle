@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.mytaxi.android_demo"
+        applicationId "com.freenow.android_demo"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
