@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mytaxi.android_demo">
+    package="com.freenow.android_demo">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -16,9 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".App">
+        android:name="com.freenow.android_demo.App">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.freenow.android_demo.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -40,11 +40,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.DriverProfileActivity"
+            android:name="com.freenow.android_demo.activities.DriverProfileActivity"
             android:label="@string/title_activity_driver_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activities.AuthenticationActivity"
+            android:name="com.freenow.android_demo.activities.AuthenticationActivity"
             android:label="@string/title_activity_authentication"></activity>
     </application>
 
