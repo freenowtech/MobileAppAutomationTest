@@ -101,7 +101,8 @@ public class HttpClient {
             JsonObject picture = jsonUser.getAsJsonObject("picture");
             String avatar = picture.get("large").getAsString();
             JsonObject location = jsonUser.getAsJsonObject("location");
-            String street = location.get("street").getAsString();
+            JsonObject street = jsonUser.getAsJsonObject("street");
+            String streetName = location.get("name").getAsString();
             JsonObject registered = jsonUser.getAsJsonObject("registered");
             String date = registered.get("date").getAsString();
             Date registeredDate;
@@ -111,7 +112,7 @@ public class HttpClient {
                 e.printStackTrace();
                 registeredDate = new Date(0);
             }
-            drivers.add(new Driver(fullName, phone, avatar, street, registeredDate));
+            drivers.add(new Driver(fullName, phone, avatar, streetName, registeredDate));
         }
         return drivers;
     }
