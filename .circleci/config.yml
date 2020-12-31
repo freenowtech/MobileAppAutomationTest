@@ -29,7 +29,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: ./gradlew androidDependencies
+      - run: ./AndroidDemo/gradlew androidDependencies
 
       - save_cache:
           paths:
@@ -37,11 +37,11 @@ jobs:
           key: v1-dependencies-{{ checksum "AndroidDemo/build.gradle" }}
 
       # run tests!
-      - run: ./gradlew lint test
+      - run: ./AndroidDemo/gradlew lint test
       # Store test results
       - store_artifacts:
-          path: app/build/reports
+          path: AndroidDemo/app/build/reports
           destination: reports
 
       - store_test_results:
-          path: app/build/test-results
+          path: AndroidDemo/app/build/test-results
